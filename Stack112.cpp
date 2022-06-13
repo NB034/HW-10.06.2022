@@ -38,6 +38,8 @@ Stack112& Stack112::operator=(const Stack112& stack) {
 	return *this;
 }
 Stack112& Stack112::operator=(Stack112&& stack) {
+	if (this == &stack)
+		return *this;
 	if (this->arr != nullptr)
 		this->~Stack112();
 	std::swap(this->maxSize, stack.maxSize);

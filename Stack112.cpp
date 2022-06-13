@@ -23,15 +23,18 @@ Stack112::Stack112(Stack112&& stack) {
 Stack112& Stack112::operator=(const Stack112& stack) {
 	if (this == &stack)
 		return *this;
-	this->~Stack112();
-	if (stack.arr != nullptr) {
-		this->maxSize = stack.maxSize;
-		this->currentSize = stack.currentSize;
-		this->arr = new char[this->maxSize];
-		for (size_t i = 0; i < this->currentSize; i++) {
-			this->arr[i] = stack.arr[i];
-		}
+	if (stack.arr == nullptr) {
+		this->~Stack112();
+		return *this;
 	}
+	if (stack.maxSize != this->maxSize) {
+		this->~Stack112();
+		this->maxSize = stack.maxSize;
+		this->arr = new char[this->maxSize];
+	}
+	this->currentSize = stack.currentSize;
+	for (size_t i = 0; i < this->currentSize; i++)
+		this->arr[i] = stack.arr[i];
 	return *this;
 }
 Stack112& Stack112::operator=(Stack112&& stack) {
